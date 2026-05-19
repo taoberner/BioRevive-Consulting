@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BioRevive Consulting | Rewilding Dunfermline</title>
+  <meta name="description" content="BioRevive Consulting — biodiversity monitoring and rewilding solutions for Dunfermline, Scotland.">
+
+  <!-- AOS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.css">
+  <!-- Swiper -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- ── Navigation ──────────────────────────────────────────── -->
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <div class="nav-logo">
+      <span class="logo-icon">🌿</span>
+      <span class="logo-text">BioRevive</span>
+      <span class="logo-sub">Consulting</span>
+    </div>
+
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#dashboard">Dashboard</a></li>
+      <li><a href="#species">Species</a></li>
+      <li><a href="#sensors">Sensors</a></li>
+      <li><a href="#impact">Impact</a></li>
+      <li><a href="#timeline">Timeline</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+      </button>
+      <a href="#contact" class="btn-primary" style="padding:10px 22px;font-size:0.85rem">Get Report</a>
+    </div>
+
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── Hero ────────────────────────────────────────────────── -->
+<section class="hero" id="hero">
+  <div class="hero-particles" id="particles"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      Live Environmental Monitoring
+    </div>
+
+    <h1 class="hero-title">
+      <span class="title-line">BioRevive</span>
+      <span class="title-line accent">Consulting</span>
+    </h1>
+
+    <p class="hero-subtitle">
+      Restoring biodiversity &amp; rewilding ecosystems in<br>
+      <strong>Dunfermline, Scotland</strong>
+    </p>
+
+    <div class="hero-ctas">
+      <a href="#dashboard" class="btn-primary"><i class="fas fa-chart-line"></i> Live Dashboard</a>
+      <a href="#species"   class="btn-secondary"><i class="fas fa-paw"></i> Species Watch</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-number" data-target="127">0</span>
+        <span class="stat-label">Active Sensors</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-number" data-target="34">0</span>
+        <span class="stat-label">Species Tracked</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-number" data-target="450">0</span>
+        <span class="stat-label">Trees Planted</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-number" data-target="3">0</span>
+        <span class="stat-label">Years Active</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <span>Scroll to explore</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- ── Dashboard ───────────────────────────────────────────── -->
+<section class="section dashboard-section" id="dashboard">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-tag">Live Data</span>
+      <h2>Environmental Dashboard</h2>
+      <p>Real-time IoT monitoring of Dunfermline's rewilding zones</p>
+    </div>
+
+    <div class="dashboard-grid">
+      <!-- Map panel -->
+      <div class="map-panel" data-aos="fade-right">
+        <div class="panel-header">
+          <h3><i class="fas fa-map-marker-alt"></i> Sensor Network — Dunfermline</h3>
+          <div class="map-controls">
+            <button class="map-btn active" data-layer="sensors">Sensors</button>
+            <button class="map-btn"        data-layer="zones">Zones</button>
+            <button class="map-btn"        data-layer="species">Species</button>
+          </div>
+        </div>
+        <div id="map" class="map-container"></div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="side-panel" data-aos="fade-left">
+        <!-- Status cards -->
+        <div class="status-cards">
+          <div class="status-card">
+            <div class="status-icon" style="background:rgba(29,158,117,0.12)">
+              <i class="fas fa-thermometer-half" style="color:#1D9E75"></i>
+            </div>
+            <div class="status-info">
+              <span class="status-label">Temperature</span>
+              <span class="status-value" id="temp-value">--°C</span>
+            </div>
+            <div class="status-trend up"><i class="fas fa-arrow-up"></i></div>
+          </div>
+          <div class="status-card">
+            <div class="status-icon" style="background:rgba(93,202,165,0.12)">
+              <i class="fas fa-tint" style="color:#5DCAA5"></i>
+            </div>
+            <div class="status-info">
+              <span class="status-label">Humidity</span>
+              <span class="status-value" id="humidity-value">--%</span>
+            </div>
+            <div class="status-trend"><i class="fas fa-minus"></i></div>
+          </div>
+          <div class="status-card">
+            <div class="status-icon" style="background:rgba(39,80,10,0.12)">
+              <i class="fas fa-wind" style="color:#27500A"></i>
+            </div>
+            <div class="status-info">
+              <span class="status-label">Air Quality</span>
+              <span class="status-value" id="aqi-value">-- AQI</span>
+            </div>
+            <div class="status-trend up"><i class="fas fa-check"></i></div>
+          </div>
+          <div class="status-card">
+            <div class="status-icon" style="background:rgba(39,174,96,0.12)">
+              <i class="fas fa-volume-up" style="color:#27AE60"></i>
+            </div>
+            <div class="status-info">
+              <span class="status-label">Sound Level</span>
+              <span class="status-value" id="sound-value">-- dB</span>
+            </div>
+            <div class="status-trend"><i class="fas fa-minus"></i></div>
+          </div>
+        </div>
+
+        <!-- Chart -->
+        <div class="chart-panel">
+          <div class="panel-header" style="padding:0 0 12px;border:none">
+            <h4>24-hour Trend</h4>
+            <select id="chart-selector" class="chart-select">
+              <option value="temperature">Temperature</option>
+              <option value="humidity">Humidity</option>
+              <option value="biodiversity">Biodiversity</option>
+            </select>
+          </div>
+          <canvas id="main-chart"></canvas>
+        </div>
+
+        <!-- Alerts -->
+        <div class="alerts-panel">
+          <h4><i class="fas fa-bell"></i> Recent Activity</h4>
+          <div id="alerts-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Species ──────────────────────────────────────────────── -->
+<section class="section species-section" id="species">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-tag">Wildlife</span>
+      <h2>Species Recovery Programme</h2>
+      <p>Tracking the return of native wildlife to Dunfermline's green spaces</p>
+    </div>
+
+    <div class="swiper species-swiper" data-aos="fade-up" data-aos-delay="100">
+      <div class="swiper-wrapper" id="species-wrapper"></div>
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Sensors ──────────────────────────────────────────────── -->
+<section class="section sensors-section" id="sensors">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-tag">Network</span>
+      <h2>Sensor Network Status</h2>
+      <p>127 IoT devices monitoring the ecosystem around the clock</p>
+    </div>
+
+    <div class="sensors-filters" data-aos="fade-up">
+      <button class="filter-btn active" data-filter="all">All Sensors</button>
+      <button class="filter-btn" data-filter="multimodal">Multimodal</button>
+      <button class="filter-btn" data-filter="temperature">Temperature</button>
+      <button class="filter-btn" data-filter="humidity">Humidity</button>
+      <button class="filter-btn" data-filter="sound">Sound</button>
+      <button class="filter-btn" data-filter="camera">Camera</button>
+    </div>
+
+    <div class="sensors-grid" id="sensors-grid" data-aos="fade-up" data-aos-delay="80"></div>
+  </div>
+</section>
+
+<!-- ── Impact ───────────────────────────────────────────────── -->
+<section class="section impact-section" id="impact">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-tag">Results</span>
+      <h2>Environmental Impact</h2>
+      <p>Measuring the success of our rewilding initiatives since 2022</p>
+    </div>
+
+    <div class="impact-grid">
+      <div class="impact-counters" data-aos="fade-right">
+        <div class="counter-item">
+          <span class="counter-number" data-target="78">0</span><span class="counter-symbol">%</span>
+          <span class="counter-label">Biodiversity Increase</span>
+          <div class="counter-bar"><div class="counter-fill" data-width="78"></div></div>
+        </div>
+        <div class="counter-item">
+          <span class="counter-number" data-target="450">0</span><span class="counter-symbol">+</span>
+          <span class="counter-label">Native Trees Planted</span>
+          <div class="counter-bar"><div class="counter-fill" data-width="90"></div></div>
+        </div>
+        <div class="counter-item">
+          <span class="counter-number" data-target="12">0</span><span class="counter-symbol"> ha</span>
+          <span class="counter-label">Land Restored</span>
+          <div class="counter-bar"><div class="counter-fill" data-width="60"></div></div>
+        </div>
+        <div class="counter-item">
+          <span class="counter-number" data-target="34">0</span><span class="counter-symbol">+</span>
+          <span class="counter-label">Species Returning</span>
+          <div class="counter-bar"><div class="counter-fill" data-width="68"></div></div>
+        </div>
+      </div>
+
+      <div class="impact-chart" data-aos="fade-left">
+        <h3>Ecosystem Health Radar</h3>
+        <canvas id="radar-chart"></canvas>
+      </div>
+
+      <div class="impact-bar-chart" data-aos="fade-up">
+        <h3>Species Population Trends (2022 → 2025)</h3>
+        <canvas id="bar-chart"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Timeline ─────────────────────────────────────────────── -->
+<section class="section timeline-section" id="timeline">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-tag">Journey</span>
+      <h2>Project Timeline</h2>
+      <p>Three years of rewilding Dunfermline's most valuable green spaces</p>
+    </div>
+    <div id="timeline-container"></div>
+  </div>
+</section>
+
+<!-- ── Contact ──────────────────────────────────────────────── -->
+<section class="section contact-section" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info" data-aos="fade-right">
+        <span class="section-tag">Get in Touch</span>
+        <h2>Partner With Us</h2>
+        <p>Interested in rewilding, data access, or community programmes? We'd love to hear from you.</p>
+
+        <div class="contact-details">
+          <div class="contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Pittencrieff Park, Dunfermline, KY12 7LQ</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-envelope"></i>
+            <span>info@biorevive.co.uk</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-phone"></i>
+            <span>+44 (0) 1383 000 000</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-clock"></i>
+            <span>Mon–Fri, 09:00–17:30</span>
+          </div>
+        </div>
+
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-link" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+
+      <div class="contact-form-panel" data-aos="fade-left">
+        <form class="contact-form" id="contact-form" novalidate>
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" placeholder="Your name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="you@example.com" required>
+          </div>
+          <div class="form-group">
+            <label for="subject">Topic</label>
+            <select id="subject">
+              <option value="">Select a topic…</option>
+              <option>Partnership Enquiry</option>
+              <option>Data Access &amp; API</option>
+              <option>Volunteer Programme</option>
+              <option>Press &amp; Media</option>
+              <option>General Enquiry</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" rows="4" placeholder="Tell us about your interest…"></textarea>
+          </div>
+          <button type="submit" class="btn-primary full-width">
+            <i class="fas fa-paper-plane"></i> Send Message
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ───────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo">
+          <span class="logo-icon">🌿</span>
+          <span class="logo-text">BioRevive</span>
+        </div>
+        <p>Restoring Scotland's wildlife, one hectare at a time. The leading rewilding consultancy in Fife.</p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#dashboard">Live Dashboard</a></li>
+          <li><a href="#species">Species Watch</a></li>
+          <li><a href="#impact">Impact Report</a></li>
+          <li><a href="#timeline">Timeline</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">Annual Report</a></li>
+          <li><a href="#">Data Portal</a></li>
+          <li><a href="#">API Docs</a></li>
+          <li><a href="#">Partner Programme</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-newsletter">
+        <h4>Stay Updated</h4>
+        <p>Monthly biodiversity reports &amp; wildlife highlights</p>
+        <div class="newsletter-form">
+          <input type="email" placeholder="your@email.com" aria-label="Email for newsletter">
+          <button class="btn-primary" onclick="showToast('✅ Subscribed! Watch your inbox.','success',4000);return false">
+            Subscribe
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2025 BioRevive Consulting. All rights reserved.</p>
+      <p>Made with 💚 for Scotland's wildlife — Dunfermline, Fife</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ── Toast Container ──────────────────────────────────────── -->
+<div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+<!-- ── Scripts ──────────────────────────────────────────────── -->
+<!-- External libraries -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<!-- App modules -->
+<script src="js/data.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/map.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/animations.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
